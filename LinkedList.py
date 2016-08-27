@@ -7,7 +7,8 @@ def printList(head):
         print temp.val,
         temp = temp.next
 
-def construct_linkedList(lists = []):
+
+def construct_linkedList(lists=[]):
     if len(lists) == 0:
         return None
     elif len(lists) == 1:
@@ -15,7 +16,6 @@ def construct_linkedList(lists = []):
     else:
         for i in range(len(lists) - 1):
             lists[i].next = lists[i + 1]
-
 
 
 # 16. reverse a linkedList, iterative
@@ -39,6 +39,7 @@ def reverse_rec(head):
     head.next = None
     return new_head
 
+
 # 17. detect cycle in linkedlist
 # proof: https://www.quora.com/How-does-Floyds-cycle-finding-algorithm-work
 def detectloop_flag(head):
@@ -53,6 +54,7 @@ def detectloop_flag(head):
     else:
         return "find loop"
 
+
 def detectloop_2pointer(head):
     if head is None or head.next is None:
         return "No loop"
@@ -66,6 +68,7 @@ def detectloop_2pointer(head):
         if fast is slow:
             return "find loop"
     return "No loop"
+
 
 # 18.merge two linkedlists
 def sorted_merge(l1, l2):
@@ -87,6 +90,7 @@ def sorted_merge(l1, l2):
         tail.next = l2
     return dummy.next
 
+
 def sorted_merge_rec(l1, l2):
     if not l1:
         return l2
@@ -101,6 +105,7 @@ def sorted_merge_rec(l1, l2):
         res = l1
         res.next = sorted_merge(l1.next, l2)
     return res
+
 
 # 20.Given a linked list which is sorted, how will you insert in sorted way
 def sortedInsert(head, n):
@@ -125,6 +130,53 @@ def sortedInsert(head, n):
         prev.next = new_node
         new_node.next = curr
         return head
+
+
+# 22.Function to check if a singly linked list is palindrome
+def isPalindrome(head):
+    """
+    :type head: ListNode
+    :rtype: bool
+    """
+    if head is None or head.next is None:
+        return True
+
+    middle = find_middle(head)
+    second_half = middle.next
+    middle.next = None
+
+    second_half_rev = reverse(second_half)
+    return compare(head, second_half_rev)
+
+
+def reverse(head):
+    prev = None
+    while head:
+        next = head.next
+        head.next = prev
+        prev = head
+        head = next
+    return prev
+
+
+def find_middle(head):
+    if head is None or head.next is None:
+        return head
+    slow = head
+    fast = head
+    while fast and fast.next and fast.next.next:
+        slow = slow.next
+        fast = fast.next.next
+    return slow
+
+
+def compare(self, l1, l2):
+    while l1 and l2:
+        if l1.val != l2.val:
+            return False
+        l1 = l1.next
+        l2 = l2.next
+    return True
 
 
 if __name__ == "__main__":
