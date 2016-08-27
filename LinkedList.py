@@ -102,6 +102,31 @@ def sorted_merge_rec(l1, l2):
         res.next = sorted_merge(l1.next, l2)
     return res
 
+# 20.Given a linked list which is sorted, how will you insert in sorted way
+def sortedInsert(head, n):
+    """
+
+    :param head: ListNode
+    :param n: int
+    :return: ListNode
+    """
+    new_node = ListNode(n)
+    if head is None:
+        return new_node
+    elif head.val > n:
+        new_node.next = head
+        return new_node
+    else:
+        prev = None
+        curr = head
+        while curr and curr.val < n:
+            prev = curr
+            curr = curr.next
+        prev.next = new_node
+        new_node.next = curr
+        return head
+
+
 if __name__ == "__main__":
     l1 = ListNode(20)
     l2 = ListNode(22)
@@ -114,11 +139,8 @@ if __name__ == "__main__":
     l8 = ListNode(27)
     l9 = ListNode(99)
     construct_linkedList([l1, l2, l3, l4])
-    construct_linkedList([l5, l6, l7, l8, l9])
 
     printList(l1)
     print
-    printList(l5)
-    print
-    a = sorted_merge_rec(l1, l5)
+    a = sortedInsert(l1, 25)
     printList(a)
