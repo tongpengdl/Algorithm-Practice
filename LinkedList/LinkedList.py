@@ -179,20 +179,44 @@ def compare(self, l1, l2):
     return True
 
 
+# 34.Merge Sort for Linked Lists
+def merge_sort(head):
+    if head is None or head.next is None:
+        return head
+    first, second = divide_lists(head)
+    if first is not second:
+        sorted_first = merge_sort(first)
+        sorted_second = merge_sort(second)
+        return sorted_merge(sorted_first, sorted_second)
+    else:
+        return first
+
+def divide_lists(head):
+    if head is None or head.next is None:
+        return (head, head)
+    slow = head
+    fast = head
+    while fast and fast.next and fast.next.next:
+        slow = slow.next
+        fast = fast.next.next
+    next_half = slow.next
+    slow.next = None
+    return (head, next_half)
+
 if __name__ == "__main__":
     l1 = ListNode(20)
-    l2 = ListNode(22)
-    l3 = ListNode(24)
-    l4 = ListNode(26)
+    l2 = ListNode(10)
+    l3 = ListNode(30)
+    l4 = ListNode(80)
 
-    l5 = ListNode(21)
-    l6 = ListNode(23)
-    l7 = ListNode(25)
-    l8 = ListNode(27)
-    l9 = ListNode(99)
-    construct_linkedList([l1, l2, l3, l4])
+    l5 = ListNode(35)
+    l6 = ListNode(102)
+    l7 = ListNode(9)
+    l8 = ListNode(98)
+    l9 = ListNode(1)
+    construct_linkedList([l1, l2, l3, l4, l5, l6, l7, l8, l9])
 
     printList(l1)
     print
-    a = sortedInsert(l1, 25)
+    a = merge_sort(l1)
     printList(a)
